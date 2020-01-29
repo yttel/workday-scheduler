@@ -71,6 +71,22 @@ div.instructions{
   cursor: default;
 }
 
+.pink{
+  background-color: pink;
+}
+
+.beforeNow{
+  background-color: #d3d3d3;
+}
+
+.thisIsNow{
+  background-color: #ffffff;
+}
+
+.afterNow{
+  background-color: #b8e0de;
+}
+
 li.answerText{
   border: 2px solid #4aaaa5;
 }

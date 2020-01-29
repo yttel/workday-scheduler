@@ -75,6 +75,30 @@ $(function(){
   }
 
   function addARow(time, words){
+
+    let bgColor;
+
+    let timeComp = Math.sign(parseInt(time) - parseInt(moment().format("HH")));
+
+    switch (timeComp){
+      case 0:
+        //current hour, color row white
+        bgColor = "thisIsNow";
+        break;
+      case (-1):
+        //before current hour, color row lt gray
+        bgColor = "beforeNow";
+        break;
+      case (1):
+        //after the current hour, color row lt teal
+        bgColor = "afterNow";
+        break;
+      default: 
+        // broken
+        bgColor = "pink";
+    }
+    
+
     let row = $("<div>")
                 .addClass("row w-100 mx-0")
                 .attr("data-hour", time);
@@ -83,13 +107,15 @@ $(function(){
                 .addClass("col-lg-2 text-center w-100"));
     row.append($("<div>")
                 .text(words)
-                .addClass("col-lg-8 text-center w-100")
+                .addClass("col-lg-8 text-center w-100 textArea")
+                .addClass(bgColor)
                 .attr("data-hour", time));
     row.append($("<div>")
                 .addClass("col-lg-2 w-100 text-center")
                 .append($("<i>")
                         .addClass("far fa-save fa-3x")
-                        .attr("data-hour", time)));    
+                        .attr("data-hour", time)));
+                        
     calendarSpot.append(row);
   }
 
@@ -119,7 +145,15 @@ $(function(){
 
 
   //  EVENT LISTENERS
+  $(document).on("click", ".textArea", function(){
+    //change from display to text area for input
+  });
+
+  $(document).on("click", "i", function(){
+    //save what's been typed and switch to display
+  });
 
   renderCalendar();
+  
 
 });
