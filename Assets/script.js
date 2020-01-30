@@ -100,22 +100,37 @@ $(function(){
     
 
     let row = $("<div>")
-                .addClass("row w-100 mx-0")
+                .addClass("row w-100 mx-0 hourRow")
                 .attr("data-hour", time);
     row.append($("<div>")
                 .text(hourTime(time))
-                .addClass("col-lg-2 text-center w-100"));
+                .addClass("col-sm-2 hour text-center w-100"));
     row.append($("<div>")
-                .text(words)
-                .addClass("col-lg-8 text-center w-100 textArea")
+                .addClass("col-sm-8 w-100 textArea")
                 .addClass(bgColor)
-                .attr("data-hour", time));
+                .append($("<textarea>")
+                  .text(words)
+                  .attr({
+                    "value": words,
+                    "data-hour": time
+                  })
+                )
+              );
+    let saveButton = $("<i>")
+                      .addClass("far fa-save fa-3x")
+                      .attr("data-hour", time);
+    
+    if (words.length > 0){
+      saveButton.append($("<p>")
+                        .text("SAVED")
+                        .addClass("text-center")
+                        .css("font-size", "1rem"));
+    }
+
     row.append($("<div>")
-                .addClass("col-lg-2 w-100 text-center")
-                .append($("<i>")
-                        .addClass("far fa-save fa-3x")
-                        .attr("data-hour", time)));
-                        
+                .addClass("col-sm-2 w-100 text-center myButton")
+                .append(saveButton));
+
     calendarSpot.append(row);
   }
 
@@ -139,18 +154,19 @@ $(function(){
   //takes the text and stores it in the location (string from data-hour attr)
   function makeEntry(text, location){
     let time = parseInt(location);
-    storedTasks[time-6].text(text);
-    localStorage.setItem("storedList", JSON.stringify(storedTasks)); 
+    storedTasks = JSON.parse(localStorage.getItem("storedList"));
+    storedTasks[(time-6)].task = text;
+    localStorage.setItem("storedList", JSON.stringify(storedTasks));
   }
 
 
   //  EVENT LISTENERS
-  $(document).on("click", ".textArea", function(){
-    //change from display to text area for input
+  $(document).on("focusout", "textarea", function(){
+    makeEntry($(this).val(), $(this).attr("data-hour")); 
   });
 
-  $(document).on("click", "i", function(){
-    //save what's been typed and switch to display
+  $(document).on("click", ".myButton", function(){
+    makeEntry($(this).prev().val(), $(this).attr("data-hour"));
   });
 
   renderCalendar();
