@@ -38,10 +38,6 @@ div.contentBox{
   margin: 20px;
 }
 
-.fullWidth{
-  width: 100%;
-}
-
 .hourRow{
   white-space: pre-wrap;
   height: 80px;
@@ -73,13 +69,21 @@ li.answerText{
   border: 2px solid #4aaaa5;
 }
 
-.myButton{
+.saveButton{
   align-items: center;
   background-color: #4aaaa5;
   color: #ffffff;
   border-left: 1px solid black;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
+}
+
+.trashButton{
+  align-items: center;
+  background-color: #4aaaa5;
+  color: #ffffff;
+  border-left: 1px solid white;
+  border-radius: 15px;
 }
 
 footer.footerStyle{
@@ -105,6 +109,7 @@ div.footerText{
 textarea{
   background: transparent;
   border: none;
+  box-shadow: black;
   resize: none;
   color: #000000;
   /* border-left: 1px solid black; */

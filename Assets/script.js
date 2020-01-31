@@ -104,9 +104,9 @@ $(function(){
                 .attr("data-hour", time);
     row.append($("<div>")
                 .text(hourTime(time))
-                .addClass("col-sm-2 hour text-center w-100"));
+                .addClass("col-sm-2 hour text-center w-100 pt-4"));
     row.append($("<div>")
-                .addClass("col-sm-8 w-100 textArea")
+                .addClass("col-sm-6 w-100 textArea")
                 .addClass(bgColor)
                 .append($("<textarea>")
                   .text(words)
@@ -116,21 +116,28 @@ $(function(){
                   })
                 )
               );
+
     let saveButton = $("<i>")
-                      .addClass("far fa-save fa-3x")
+                      .addClass("far fa-save fa-3x mt-2")
                       .attr("data-hour", time);
     
     if (words.length > 0){
       saveButton.append($("<p>")
                         .text("SAVED")
-                        .addClass("text-center")
+                        .addClass("text-center m-0")
                         .css("font-size", "1rem"));
     }
 
     row.append($("<div>")
-                .addClass("col-sm-2 w-100 text-center myButton")
+                .addClass("col-sm-2 w-100 text-center saveButton")
                 .append(saveButton));
-
+    
+    row.append($("<div>")
+                .addClass("col-sm-2 w-100 text-center trashButton")
+                .attr("data-hour", time)
+                .append($("<i>")
+                        .addClass("far fa-trash-alt fa-3x mt-2")
+                        .attr("data-hour", time)));
     calendarSpot.append(row);
   }
 
@@ -157,17 +164,25 @@ $(function(){
     storedTasks = JSON.parse(localStorage.getItem("storedList"));
     storedTasks[(time-6)].task = text;
     localStorage.setItem("storedList", JSON.stringify(storedTasks));
+    renderCalendar();
   }
-
 
   //  EVENT LISTENERS
   $(document).on("focusout", "textarea", function(){
     makeEntry($(this).val(), $(this).attr("data-hour")); 
   });
 
-  $(document).on("click", ".myButton", function(){
-    makeEntry($(this).prev().val(), $(this).attr("data-hour"));
+  $(document).on("click", ".trashButton", function(){
+    makeEntry("", $(this).attr("data-hour")); 
   });
+
+  // $(document).on("focus", "textarea", function(){
+  //   console.log($(this));
+  //   console.log($(this).next());
+  //   console.log($(this).next().children());
+  //   console.log($(this).next().children()[0]);
+  //   $(this).next().children()[1].text("editing");
+  // });
 
   renderCalendar();
   
