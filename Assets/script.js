@@ -116,17 +116,20 @@ $(function(){
                   })
                 )
               );
-
+              
+    let infoText = "";
+    
+    if (words.length > 0){
+      infoText = "SAVED"
+    }
     let saveButton = $("<i>")
                       .addClass("far fa-save fa-3x mt-2")
                       .attr("data-hour", time);
     
-    if (words.length > 0){
-      saveButton.append($("<p>")
-                        .text("SAVED")
+    saveButton.append($("<p>")
+                        .text(infoText)
                         .addClass("text-center m-0")
                         .css("font-size", "1rem"));
-    }
 
     row.append($("<div>")
                 .addClass("col-sm-2 w-100 text-center saveButton")
@@ -168,21 +171,17 @@ $(function(){
   }
 
   //  EVENT LISTENERS
-  $(document).on("focusout", "textarea", function(){
-    makeEntry($(this).val(), $(this).attr("data-hour")); 
-  });
-
   $(document).on("click", ".trashButton", function(){
     makeEntry("", $(this).attr("data-hour")); 
   });
 
-  // $(document).on("focus", "textarea", function(){
-  //   console.log($(this));
-  //   console.log($(this).next());
-  //   console.log($(this).next().children());
-  //   console.log($(this).next().children()[0]);
-  //   $(this).next().children()[1].text("editing");
-  // });
+  $(document).on("focusout", "textarea", function(){
+    makeEntry($(this).val(), $(this).attr("data-hour")); 
+  });
+
+  $(document).on("focus", "textarea", function(){
+    $(this).parent().next().children().children().text("editing");
+  });
 
   renderCalendar();
   

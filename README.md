@@ -15,6 +15,6 @@ You'll need to use the Moment.js library to work with date and time. Be sure to 
 
 ## Screenshots
 
-![Initial screen](./Assets/Images/quizInst.PNG)
+![Initial screen](./Assets/Images/example1.PNG)
 
-![During use](./Assets/Images/quizQuest.PNG)
+![During use](./Assets/Images/example2.PNG)
